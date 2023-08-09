@@ -30,29 +30,62 @@ function operate(first,operator,second) {
 let first = '';
 let operator = '';
 let second = '';
-let textDisplay='';
+let textResult='';
+let textOperation='';
 
 function updateResult() {
-    textDisplay += this.textContent;
-    const displayText = document.querySelector('#result');
-    displayText.textContent = `${textDisplay}`;
-    return textDisplay
+    textResult += this.textContent;
+    const resultText = document.querySelector('#result');
+    resultText.textContent = `${textResult}`;
+    return textResult
 }
 
 function updateOperation() {
-    first += textDisplay;
-    operator += this.textContent
-    const displayText = document.querySelector('#operation');
-    displayText.textContent = `${textDisplay} ${operator}`;
+    first += textResult;
+    operator += this.textContent;
+    textOperation += first + operator;
+    textResult = '';
+    const operationText = document.querySelector('#operation');
+    operationText.textContent = `${textOperation}`;
     return {
         first,
-        operator
+        operator,
+        textOperation,
+        textResult
     }
-
 }
 
 function calculateResult() {
-    second += 
+    second += textResult
+    textOperation += second + '=';
+    const operationText = document.querySelector('#operation');
+    operationText.textContent = `${textOperation}`;
+    textResult = operate(first,operator,second);
+    const resultText = document.querySelector('#result');
+    resultText.textContent = `${textResult}`;
+    return {
+        second,
+        result, 
+        textOperation, 
+        textResult
+    }
+}
+
+function clearAll() {
+    first = '';
+    operator = '';
+    second = '';
+    textResult='';
+    textOperation='';
+    result = ''
+    return {
+        first, 
+        operator, 
+        second, 
+        textResult, 
+        textOperation, 
+        result
+    }
 }
 
 const number = document.querySelectorAll('#number');
@@ -68,4 +101,5 @@ operand.forEach((button) => {
 const equalSign = document.querySelector('#equal');
 equalSign.addEventListener('click',calculateResult);
 
-
+const clearSign = document.querySelector('#clear');
+clearSign.addEventListener('click',clearAll);
