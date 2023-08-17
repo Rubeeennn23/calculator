@@ -1,5 +1,5 @@
 function add(a,b) {
-    return a+b
+    return parseInt(a)+parseInt(b)
 }
 
 function substract(a,b) {
@@ -14,8 +14,7 @@ function divide(a,b){
     return a/b
 }
 
-function operate(first,operator,second) {
-    let result
+function operate(first,operator,second, result) {
     if (operator === '+') {
         result = add(first,second)
     } else if (operator === '-') {
@@ -27,12 +26,6 @@ function operate(first,operator,second) {
     } return result
 }
 
-let first = '';
-let operator = '';
-let second = '';
-let textResult='';
-let textOperation='';
-
 function updateResult() {
     textResult += this.textContent;
     const resultText = document.querySelector('#result');
@@ -41,9 +34,9 @@ function updateResult() {
 }
 
 function updateOperation() {
-    first += textResult;
-    operator += this.textContent;
-    textOperation += first + operator;
+    first = textResult;
+    operator = this.textContent;
+    textOperation = first + operator;
     textResult = '';
     const operationText = document.querySelector('#operation');
     operationText.textContent = `${textOperation}`;
@@ -56,7 +49,7 @@ function updateOperation() {
 }
 
 function calculateResult() {
-    second += textResult
+    second = textResult
     textOperation += second + '=';
     const operationText = document.querySelector('#operation');
     operationText.textContent = `${textOperation}`;
@@ -71,22 +64,22 @@ function calculateResult() {
     }
 }
 
-function clearAll() {
+function clearAll(first,operator,second,textResult,textOperation,result) {
     first = '';
     operator = '';
     second = '';
     textResult='';
     textOperation='';
     result = ''
-    return {
-        first, 
-        operator, 
-        second, 
-        textResult, 
-        textOperation, 
-        result
-    }
+    return first
 }
+
+let first = '';
+let operator = '';
+let second = '';
+let textResult='';
+let textOperation='';
+let result = '';
 
 const number = document.querySelectorAll('#number');
 number.forEach((button) => {
