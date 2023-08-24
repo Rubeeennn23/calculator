@@ -34,29 +34,48 @@ function updateResult() {
 }
 
 function updateOperation() {
-    first = textResult;
-    operator = this.textContent;
-    textOperation = first + operator;
-    textResult = '';
-    const operationText = document.querySelector('#operation');
-    operationText.textContent = `${textOperation}`;
-    return {
+       if (!first && !operator) {
+        first = textResult;
+        operator = this.textContent;
+        textOperation = first + operator;
+        const operationText = document.querySelector('#operation');
+        operationText.textContent = `${textOperation}`;
+        textResult = '';
+       } else {
+        calculateResult()
+        first = textResult
+        operator = this.textContent
+        textOperation = first + operator;
+        const operationText = document.querySelector('#operation');
+        operationText.textContent = `${textOperation}`;
+        textResult = '';
+        } return {
         first,
         operator,
         textOperation,
         textResult
-    }
-}
+        }
+}    
+
 
 function calculateResult() {
-    second = textResult
-    textOperation += second + '=';
-    const operationText = document.querySelector('#operation');
-    operationText.textContent = `${textOperation}`;
-    textResult = operate(first,operator,second);
-    const resultText = document.querySelector('#result');
-    resultText.textContent = `${textResult}`;
-    return {
+    second = textResult;
+    if (!first || !operator || !second) {
+        textOperation = 'ERROR, you need to select first which operation you want to evaluate'
+        const operationText = document.querySelector('#operation');
+        operationText.textContent = `${textOperation}`;
+    } else if (operator === '/' && second==='0') {
+        alert("you can't divide by 0, try another operation!");
+        result = 0 
+    } else {
+        second = textResult
+        textResult = Math.round(operate(first,operator,second)*100)/100;
+        const resultText = document.querySelector('#result');
+        resultText.textContent = `${textResult}`;
+        textOperation += second;
+        const operationText = document.querySelector('#operation');
+        operationText.textContent = `${textOperation}`;
+    } return {
         second,
         result, 
         textOperation, 
@@ -64,14 +83,18 @@ function calculateResult() {
     }
 }
 
-function clearAll(first,operator,second,textResult,textOperation,result) {
+function clearAll() {
     first = '';
     operator = '';
     second = '';
     textResult='';
     textOperation='';
     result = ''
-    return first
+    const resultText = document.querySelector('#result');
+    resultText.textContent = `${textResult}`;
+    const operationText = document.querySelector('#operation');
+    operationText.textContent = `${textOperation}`;
+    return first,operator,second,textResult,textOperation,result
 }
 
 let first = '';
