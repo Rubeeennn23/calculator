@@ -8,7 +8,7 @@ div {
     border-color: black;
     border-style:ridge;
     width: 400px;
-    height: 500px;
+    height: 550px;
     display: flex;
     flex-direction: column;
     justify-content:center;
@@ -39,7 +39,7 @@ div {
 
 #buttons {    
     width: 400px;
-    height: 400px;
+    height: 450px;
     display: flex;
     flex-wrap: wrap-reverse;
     align-items:center;
@@ -49,5 +49,29 @@ div {
 button {
     height: 100px;
     width: 100px;
-    padding: 0px;
+}
+
+#number {
+    background-color: lightgrey;
+    color: black;
+}
+
+#operator,#equal,#decimal {
+    background-color: gray;
+    color: white;
+}
+
+#clear,#delete {
+    width: 200px;
+    height: 50px;
+}
+
+#clear {
+    background-color: lightcoral;
+    color: white;
+}
+
+#delete {
+    background-color: lightblue;
+    color: white;
 }

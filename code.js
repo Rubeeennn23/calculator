@@ -97,6 +97,24 @@ function clearAll() {
     return first,operator,second,textResult,textOperation,result
 }
 
+function addDecimal() {
+    let point=''
+    if (point === '') {
+        int = textResult;
+        point = '.';
+        textResult = int + point;
+        const resultText = document.querySelector('#result');
+        resultText.textContent = `${textResult}`;
+    }  else if (point === '.') {
+        int = textResult;
+        point = '';
+        textResult = int + point;
+        const resultText = document.querySelector('#result');
+        resultText.textContent = `${textResult}`;
+    }
+    return textResult
+}
+
 let first = '';
 let operator = '';
 let second = '';
@@ -119,3 +137,6 @@ equalSign.addEventListener('click',calculateResult);
 
 const clearSign = document.querySelector('#clear');
 clearSign.addEventListener('click',clearAll);
+
+const decimalSign = document.querySelector('#decimal')
+decimalSign.addEventListener('click',addDecimal);
