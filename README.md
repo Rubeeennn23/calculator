@@ -1,1 +1,2 @@
 # calculator
+This project from The Odin Project consists in creating a calculator. I've been able to complete all the mandatory and optional requirements excepting the keyboard support, which will be implemented in a near future (hopefully :) )  
