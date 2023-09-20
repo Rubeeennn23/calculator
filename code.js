@@ -35,6 +35,7 @@ function updateResult() {
 
 function updateOperation() {
        if (!first && !operator) {
+        point = '';
         first = textResult;
         operator = this.textContent;
         textOperation = first + operator;
@@ -43,6 +44,7 @@ function updateOperation() {
         textResult = '';
        } else {
         calculateResult()
+        point = '';
         first = textResult
         operator = this.textContent
         textOperation = first + operator;
@@ -72,7 +74,7 @@ function calculateResult() {
         textResult = Math.round(operate(first,operator,second)*100)/100;
         const resultText = document.querySelector('#result');
         resultText.textContent = `${textResult}`;
-        textOperation += second;
+        textOperation += second + this.textContent;
         const operationText = document.querySelector('#operation');
         operationText.textContent = `${textOperation}`;
     } return {
@@ -89,7 +91,8 @@ function clearAll() {
     second = '';
     textResult='';
     textOperation='';
-    result = ''
+    result = '';
+    point = '';
     const resultText = document.querySelector('#result');
     resultText.textContent = `${textResult}`;
     const operationText = document.querySelector('#operation');
@@ -98,7 +101,6 @@ function clearAll() {
 }
 
 function addDecimal() {
-    let point=''
     if (point === '') {
         int = textResult;
         point = '.';
@@ -107,11 +109,20 @@ function addDecimal() {
         resultText.textContent = `${textResult}`;
     }  else if (point === '.') {
         int = textResult;
-        point = '';
-        textResult = int + point;
+        textResult = int;
         const resultText = document.querySelector('#result');
         resultText.textContent = `${textResult}`;
     }
+    return {
+        textResult,
+        point} 
+        
+}
+
+function deleteOne() {
+    textResult = textResult.slice(0,-1);
+    const resultText = document.querySelector('#result');
+    resultText.textContent = `${textResult}`;
     return textResult
 }
 
@@ -121,6 +132,7 @@ let second = '';
 let textResult='';
 let textOperation='';
 let result = '';
+let point ='';
 
 const number = document.querySelectorAll('#number');
 number.forEach((button) => {
@@ -140,3 +152,6 @@ clearSign.addEventListener('click',clearAll);
 
 const decimalSign = document.querySelector('#decimal')
 decimalSign.addEventListener('click',addDecimal);
+
+const deleteSign = document.querySelector('#delete')
+deleteSign.addEventListener('click',deleteOne);
